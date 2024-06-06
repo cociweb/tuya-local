@@ -7,7 +7,7 @@ from homeassistant.components.lawn_mower.const import (
     SERVICE_DOCK,
     SERVICE_PAUSE,
     SERVICE_START_MOWING,
-    LawnMowerActivity,
+    LawnMowerActivity as HALawnMowerActivity,
     LawnMowerEntityFeature,
 )
 
@@ -16,6 +16,8 @@ from .helpers.config import async_tuya_setup_platform
 from .helpers.device_config import TuyaEntityConfig
 from .helpers.mixin import TuyaLocalEntity
 
+
+from enum import Enum
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     config = {**config_entry.data, **config_entry.options}
@@ -28,10 +30,13 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     )
 
 
-class ExtendedLawnMowerActivity(LawnMowerActivity):
-    """Extended the basic Activity states of lawn mower devices."""
 
+class ExtendedLawnMowerActivity(Enum):
+    # Include original constants
+    for activity in HALawnMowerActivity:
+        locals()[activity.name] = activity.value
 
+    # Add new constants
     CHARGING = "charging"
     """Device is charging at the docking station."""
 
@@ -53,8 +58,9 @@ class ExtendedLawnMowerActivity(LawnMowerActivity):
     EMERGENCY = "manually stopped"
     """In an Emergency situation the device is stopped."""
 
-# Reassign the name 'LawnMowerActivity' to the extended class
+# Reassign the name 'LawnMowerActivity' to the new enum
 LawnMowerActivity = ExtendedLawnMowerActivity
+
 
 
 class TuyaLocalLawnMower(TuyaLocalEntity, LawnMowerEntity):

@@ -28,6 +28,35 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     )
 
 
+class ExtendedLawnMowerActivity(LawnMowerActivity):
+    """Extended the basic Activity states of lawn mower devices."""
+
+
+    CHARGING = "charging"
+    """Device is charging at the docking station."""
+
+    CHARGING_WITH_TASK_SUSPEND = "resume after recharged" 
+    """Device is charging and it has task meanwhile. It will resume after the battery is fully charged.."""
+
+    STANDBY = "standby"
+    """Device is in standby state, waiting for the next task"""
+
+    PARK = "docking"
+    """Device is going to it's station."""
+
+    LOCKED = "locked"
+    """Incorrect pin is entered and the device get locked for a certain time."""
+
+    FIXED_MOWING = "spot mowing"
+    """The mower is working on a fix spot."""
+
+    EMERGENCY = "manually stopped"
+    """In an Emergency situation the device is stopped."""
+
+# Reassign the name 'LawnMowerActivity' to the extended class
+LawnMowerActivity = ExtendedLawnMowerActivity
+
+
 class TuyaLocalLawnMower(TuyaLocalEntity, LawnMowerEntity):
     """Representation of a Tuya Lawn Mower"""
 

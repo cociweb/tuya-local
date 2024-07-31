@@ -26,14 +26,14 @@ resume:
     entity:
       domain: lawn_mower
       supported_features:
-        - lawn_mower.LawnMowerEntityFeature.START_MOWING
+        - lawn_mower.LawnMowerEntityFeature.RESUME
 
 cancel:
   target:
     entity:
       domain: lawn_mower
       supported_features:
-        - lawn_mower.LawnMowerEntityFeature.STOP
+        - lawn_mower.LawnMowerEntityFeature.CANCEL
 
 fixed_mowing:
   target:

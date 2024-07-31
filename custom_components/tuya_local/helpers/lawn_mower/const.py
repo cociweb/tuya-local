@@ -52,7 +52,7 @@ class LawnMowerEntityFeature(IntFlag):
     START_MOWING = 1
     PAUSE = 2
     DOCK = 4
-    CONTINUE = 8
+    RESUME = 8
     CANCEL = 16
     FIXED_MOWING = 32
 
@@ -63,6 +63,6 @@ DOMAIN = "lawn_mower"
 SERVICE_START_MOWING = "start_mowing"
 SERVICE_PAUSE = "pause"
 SERVICE_DOCK = "dock"
-SERVICE_CONTINUE = "continue"
+SERVICE_RESUME = "resume"
 SERVICE_CANCEL = "cancel"
 SERVICE_FIXED_MOWING = "fixed_mowing"

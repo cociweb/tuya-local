@@ -12,23 +12,25 @@ primary_entity:
       type: string
       mapping:
         - dps_val: STANDBY
+          value: standby
+        - dps_val: DOCKED
           value: docked
         - dps_val: MOWING
           value: mowing
         - dps_val: CHARGING
-          value: docked
+          value: charging
         - dps_val: EMERGENCY
-          value: error
+          value: manually stopped
         - dps_val: LOCKED
-          value: docked
+          value: locked
         - dps_val: PAUSED
           value: paused
         - dps_val: PARK
-          value: paused
+          value: returning
         - dps_val: CHARGING_WITH_TASK_SUSPEND
-          value: docked
+          value: charging
         - dps_val: FIXED_MOWING
-          value: mowing
+          value: spot mowing
         - dps_val: ERROR
           value: error
         - dps_val: UPDATA
@@ -48,7 +50,7 @@ primary_entity:
         - dps_val: PauseWork
           value: pause
         - dps_val: CancelWork
-          value: pause
+          value: stop
           hidden: true
         - dps_val: ContinueWork
           value: start_mowing
@@ -228,6 +230,12 @@ secondary_entities:
           - dps_val: MOWER_UI_LOCKED
             value: UI locked
             icon: "mdi:hand-back-right-off"
+      - id: 103
+        name: raw_problem
+        type: string
+      - id: 102
+        name: raw_error
+        type: bitfield
   - entity: switch
     name: Rain mode
     icon: "mdi:weather-pouring"

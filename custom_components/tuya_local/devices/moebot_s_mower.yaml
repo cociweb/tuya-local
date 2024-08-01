@@ -44,19 +44,20 @@ primary_entity:
       mapping:
         - dps_val: StartMowing
           value: start_mowing
-        - dps_val: StartFixedMowing
-          value: start_mowing
-          hidden: true
         - dps_val: PauseWork
           value: pause
-        - dps_val: CancelWork
-          value: stop
-          hidden: true
-        - dps_val: ContinueWork
-          value: start_mowing
-          hidden: true
         - dps_val: StartReturnStation
           value: dock
+# The following services nativelly are not yet supported by HA - so they are hidden:
+        - dps_val: CancelWork
+          value: cancel
+#          hidden: true
+        - dps_val: ContinueWork
+          value: resume
+#          hidden: true
+        - dps_val: StartFixedMowing
+          value: fixed_mowing
+#          hidden: true
     - id: 101
       name: raw_activity
       type: string
@@ -69,6 +70,9 @@ primary_entity:
       type: integer
       name: password
       sensitive: true
+      range:
+        min: 1111
+        max: 4444
     - id: 110
       type: string
       name: schedule
@@ -98,6 +102,17 @@ secondary_entities:
           - dps_val: StartFixedMowing
             value: true
   - entity: button
+    name: Start docking
+    icon: "mdi:mower-on"
+    dps:
+      - id: 115
+        type: string
+        name: button
+        optional: true
+        mapping:
+          - dps_val: StartReturnStation
+            value: true
+  - entity: button
     name: Cancel mowing
     icon: "mdi:mower"
     dps:
@@ -109,7 +124,7 @@ secondary_entities:
           - dps_val: CancelWork
             value: true
   - entity: button
-    name: Continue mowing
+    name: Resume mowing
     icon: "mdi:mower-on"
     dps:
       - id: 115
@@ -118,6 +133,28 @@ secondary_entities:
         optional: true
         mapping:
           - dps_val: ContinueWork
+            value: true
+  - entity: button
+    name: Pause mowing
+    icon: "mdi:mower-on"
+    dps:
+      - id: 115
+        type: string
+        name: button
+        optional: true
+        mapping:
+          - dps_val: PauseWork
+            value: true
+  - entity: button
+    name: Start mowing
+    icon: "mdi:mower-on"
+    dps:
+      - id: 115
+        type: string
+        name: button
+        optional: true
+        mapping:
+          - dps_val: StartFixedMowing
             value: true
   - entity: sensor
     class: battery

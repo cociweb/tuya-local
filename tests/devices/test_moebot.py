@@ -4,7 +4,7 @@ Primarily for testing the STOP command which this device is the first to use,
 and the lawn_mower platform.
 """
 
-from homeassistant.components.lawn_mower.const import (
+from ..helpers.lawn_mower.const import (
     LawnMowerActivity,
     LawnMowerEntityFeature,
 )
@@ -58,6 +58,9 @@ class TestMoebot(TuyaDeviceTestCase):
                 LawnMowerEntityFeature.START_MOWING
                 | LawnMowerEntityFeature.PAUSE
                 | LawnMowerEntityFeature.DOCK
+                | LawnMowerEntityFeature.CANCEL
+                | LawnMowerEntityFeature.RESUME
+                | LawnMowerEntityFeature.FIXED_MOWING
             ),
         )
 
@@ -65,23 +68,23 @@ class TestMoebot(TuyaDeviceTestCase):
         self.dps[STATUS_DP] = "ERROR"
         self.assertEqual(self.mower.activity, LawnMowerActivity.ERROR)
         self.dps[STATUS_DP] = "EMERGENCY"
-        self.assertEqual(self.mower.activity, LawnMowerActivity.ERROR)
+        self.assertEqual(self.mower.activity, LawnMowerActivity.EMERGENCY)
         self.dps[STATUS_DP] = "PAUSED"
         self.assertEqual(self.mower.activity, LawnMowerActivity.PAUSED)
         self.dps[STATUS_DP] = "PARK"
-        self.assertEqual(self.mower.activity, LawnMowerActivity.PAUSED)
+        self.assertEqual(self.mower.activity, LawnMowerActivity.PARK)
         self.dps[STATUS_DP] = "MOWING"
         self.assertEqual(self.mower.activity, LawnMowerActivity.MOWING)
         self.dps[STATUS_DP] = "FIXED_MOWING"
-        self.assertEqual(self.mower.activity, LawnMowerActivity.MOWING)
+        self.assertEqual(self.mower.activity, LawnMowerActivity.FIXED_MOWING)
         self.dps[STATUS_DP] = "STANDBY"
-        self.assertEqual(self.mower.activity, LawnMowerActivity.DOCKED)
+        self.assertEqual(self.mower.activity, LawnMowerActivity.STANDBY)
         self.dps[STATUS_DP] = "CHARGING"
-        self.assertEqual(self.mower.activity, LawnMowerActivity.DOCKED)
+        self.assertEqual(self.mower.activity, LawnMowerActivity.CHARGING)
         self.dps[STATUS_DP] = "LOCKED"
-        self.assertEqual(self.mower.activity, LawnMowerActivity.DOCKED)
+        self.assertEqual(self.mower.activity, LawnMowerActivity.LOCKED)
         self.dps[STATUS_DP] = "CHARGING_WITH_TASK_SUSPEND"
-        self.assertEqual(self.mower.activity, LawnMowerActivity.DOCKED)
+        self.assertEqual(self.mower.activity, LawnMowerActivity.CHARGING_WITH_TASK_SUSPEND)
 
     async def test_async_start_mowing(self):
         async with assert_device_properties_set(
@@ -103,3 +106,24 @@ class TestMoebot(TuyaDeviceTestCase):
             {COMMAND_DP: "StartReturnStation"},
         ):
             await self.mower.async_dock()
+            
+    async def test_async_resume(self):
+        async with assert_device_properties_set(
+            self.mower._device,
+            {COMMAND_DP: "ContinueWork"},
+        ):
+            await self.mower.async_resume()
+
+    async def test_async_cancel(self):
+        async with assert_device_properties_set(
+            self.mower._device,
+            {COMMAND_DP: "CancelWork"},
+        ):
+            await self.mower.async_cancel()
+
+    async def test_async_fixed_mowing(self):
+        async with assert_device_properties_set(
+            self.mower._device,
+            {COMMAND_DP: "StartFixedMowing"},
+        ):
+            await self.mower.async_fixed_mowing()

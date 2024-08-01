@@ -2,11 +2,16 @@
 Setup for different kinds of Tuya lawn mowers
 """
 
-from homeassistant.components.lawn_mower import LawnMowerEntity
-from homeassistant.components.lawn_mower.const import (
+from .helpers.lawn_mower import LawnMowerEntity
+
+from .helpers.lawn_mower.const import (
+    DOMAIN,
     SERVICE_DOCK,
     SERVICE_PAUSE,
     SERVICE_START_MOWING,
+    SERVICE_RESUME,
+    SERVICE_CANCEL,
+    SERVICE_FIXED_MOWING,
     LawnMowerActivity,
     LawnMowerEntityFeature,
 )
@@ -23,7 +28,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         hass,
         async_add_entities,
         config,
-        "lawn_mower",
+        DOMAIN,
         TuyaLocalLawnMower,
     )
 
@@ -52,6 +57,12 @@ class TuyaLocalLawnMower(TuyaLocalEntity, LawnMowerEntity):
                 self._attr_supported_features |= LawnMowerEntityFeature.PAUSE
             if SERVICE_DOCK in available_commands:
                 self._attr_supported_features |= LawnMowerEntityFeature.DOCK
+            if SERVICE_RESUME in available_commands:
+                self._attr_supported_features |= LawnMowerEntityFeature.RESUME
+            if SERVICE_CANCEL in available_commands:
+                self._attr_supported_features |= LawnMowerEntityFeature.CANCEL
+            if SERVICE_FIXED_MOWING in available_commands:
+                self._attr_supported_features |= LawnMowerEntityFeature.FIXED_MOWING
 
     @property
     def activity(self) -> LawnMowerActivity | None:
@@ -72,3 +83,18 @@ class TuyaLocalLawnMower(TuyaLocalEntity, LawnMowerEntity):
         """Stop mowing and return to dock."""
         if self._command_dp:
             await self._command_dp.async_set_value(self._device, SERVICE_DOCK)
+
+    async def async_resume(self):
+        """Resume mowing."""
+        if self._command_dp:
+            await self._command_dp.async_set_value(self._device, SERVICE_RESUME)
+
+    async def async_cancel(self):
+        """Cancel/Stop mowing."""
+        if self._command_dp:
+            await self._command_dp.async_set_value(self._device, SERVICE_CANCEL)
+
+    async def async_fixed_mowing(self) -> None:
+        """Start fixed spot mowing task."""
+        if self._command_dp:
+            await self._command_dp.async_set_value(self._device, SERVICE_FIXED_MOWING)

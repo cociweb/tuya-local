@@ -1,0 +1,46 @@
+{
+  "title": "Lawn mower",
+  "entity_component": {
+    "_": {
+      "name": "[%key:component::lawn_mower::title%]",
+      "state": {
+        "error": "Error",
+        "paused": "Paused",
+        "mowing": "Mowing",
+        "docked": "Docked",
+        "standby": "Standby",
+        "charging": "Charging",
+        "manually stopped": "Manually stopped",
+        "locked": "Locked",
+        "returning": "Returning",
+        "spot mowing": "Spot mowing"
+      }
+    }
+  },
+  "services": {
+    "start_mowing": {
+      "name": "Start mowing",
+      "description": "Starts the mowing task."
+    },
+    "fixed_mowing": {
+      "name": "Start spot mowing",
+      "description": "Starts the fixed spot mowing task."
+    },
+    "dock": {
+      "name": "Return to dock",
+      "description": "Stops the mowing task and returns to the dock."
+    },
+    "cancel": {
+      "name": "Cancel mowing",
+      "description": "Cancel the mowing task."
+    },
+    "resume": {
+      "name": "Resume mowing",
+      "description": "Resume the paused task."
+    },
+    "pause": {
+      "name": "Pause",
+      "description": "Pauses the mowing task."
+    }
+  }
+}

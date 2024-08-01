@@ -5,7 +5,6 @@ Setup for different kinds of Tuya lawn mowers
 from .helpers.lawn_mower import LawnMowerEntity
 
 from .helpers.lawn_mower.const import (
-    DOMAIN,
     SERVICE_DOCK,
     SERVICE_PAUSE,
     SERVICE_START_MOWING,
@@ -28,7 +27,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         hass,
         async_add_entities,
         config,
-        DOMAIN,
+        "lawn_mower",
         TuyaLocalLawnMower,
     )
 

@@ -256,7 +256,7 @@
 - Soho SO-350WUI Air Purifier
 - Soleusair A02 and A10 air purifiers
 - Stadler Form Roger air purifier
-- Tesla S300, Smart Pro and Mini air purifiers
+- Tesla Smart S300, Pro and Mini air purifiers
 - Vork VK6067AW air purifier
 
 ### Dehumidifiers
@@ -386,7 +386,9 @@
 - Kolanky 3.6kW EV charger
 - Parkside PLGS 2012 A1 smart charger for powertools
 - Tera W01 EV charger
+- Vevor Level 2 EV charger
 - Vivor portable EV charger
+- Wada Power Q8 EV charger
 - WOUEJ 22kW EV charger
 
 ### SmartPlugs/Wall sockets/Wall switches/Inline switches
@@ -430,6 +432,7 @@ the best option.
 - Loratap RR400W-V2 relay switch
 - Makegood double power point (sold under AusElectronicsDirect, Cleverlife, Kogan, Ozsmartthings and other brands)
 - MakeGood double switch with timers and power monitoring on whole device
+- Minoston 6 preset timer switch
 - Mirabella Genio smartplug with USB
 - Moes 3-gang switch
 - Moes 4-gang (quad) switch
@@ -673,6 +676,7 @@ port and password.
 - Petoneer Fresco Hydrate Ultra pet fountain/
 - PNI water feeder
 - Rojeco PTM-001 pet feeder (two versions)
+- Tesla Smart pet feeder
 - Tonepie T1PRO automatic cat litter box
 - V330L pet feeder
 - WellToBe Automatic Pet Feeder (WB S36D)
@@ -728,6 +732,7 @@ port and password.
 - PlantsIO Ivy smart planter
 - PV28-CW 8 in 1 air quality monitor
 - RTCZ-03 human presence sensor
+- RainPoint TTV103FRF water timer
 - SD123 HPR01 human presence radar
 - SNT957W-TDE temperature sensor
 - SNT957W-DE CBU temperature and humidity sensor
@@ -793,6 +798,7 @@ entity types as sub devices.
 - LoraTap SC500ZB-V2 curtain controller
 - Loratap SS9600ZB 6 button remote control
 - Moes BRT-100-TRV radiator valve
+- Moes dual dimmer module
 - Moes RGBCW lightbulb
 - Moes ZHT-002 thermostat
 - MultiIR MIR-TE100-TY temperature and humidity sensor
